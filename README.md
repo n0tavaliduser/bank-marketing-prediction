@@ -14,8 +14,8 @@ Untuk menyiapkan env dan menjalankan proyek, ikuti langkah-langkah berikut:
 
 1.  **Clone repositori ini:**
     ```bash
-    git clone <url-repositori>
-    cd bank-marketing
+    git clone https://github.com/n0tavaliduser/bank-marketing-prediction.git
+    cd bank-marketing-prediction
     ```
 
 2.  **Buat dan aktifkan env virtual** (disarankan):
