@@ -7,6 +7,7 @@ Proyek ini mengimplementasikan dan mengevaluasi tiga model machine learning (K-N
 Dataset yang digunakan adalah dataset "Bank Marketing" dari UCI Machine Learning Repository. Dataset ini berisi data dari kampanye pemasaran langsung sebuah institusi perbankan di Portugal.
 
 - **File:** `datasets/bank-full.csv`
+- **Source:** [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/222/bank+marketing)
 
 ## Instalasi
 
