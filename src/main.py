@@ -25,12 +25,13 @@ def main():
     k_folds = [5, 10]
 
     results = []
+    trade_off_results = []
 
     for model_name in models:
         for split_ratio in split_ratios:
             for k_fold in k_folds:
                 print(f'Running {model_name} with split {split_ratio} and k-fold {k_fold}')
-                accuracy, mean_cv_accuracy = train_and_evaluate(X, y, model_name, split_ratio, k_fold, output_dir)
+                accuracy, mean_cv_accuracy, training_time, memory_usage = train_and_evaluate(X, y, model_name, split_ratio, k_fold, output_dir)
                 results.append({
                     'Model': model_name,
                     'Split Ratio': split_ratio,
@@ -38,10 +39,22 @@ def main():
                     'Split Accuracy': accuracy,
                     'Mean CV Accuracy': mean_cv_accuracy
                 })
+                trade_off_results.append({
+                    'Model': model_name,
+                    'Split Ratio': split_ratio,
+                    'K-Fold': k_fold,
+                    'Accuracy': accuracy,
+                    'Training Time (s)': training_time,
+                    'Memory Usage (MB)': memory_usage / (1024 * 1024)
+                })
 
     # Create and save results summary
     results_df = pd.DataFrame(results)
     results_df.to_csv(os.path.join(output_dir, 'scorer', 'summary_results.csv'), index=False)
+
+    # Create and save trade-off summary
+    trade_off_df = pd.DataFrame(trade_off_results)
+    trade_off_df.to_csv(os.path.join(output_dir, 'trade_off.csv'), index=False)
 
     # Create and save bar plots
     for metric in ['Split Accuracy', 'Mean CV Accuracy']:
