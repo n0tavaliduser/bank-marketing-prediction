@@ -58,20 +58,20 @@ Tabel berikut merangkum kinerja setiap model di berbagai konfigurasi rasio pemis
 | Model         | Rasio Split | K-Fold | Akurasi Split | Rata-rata Akurasi CV |
 |---------------|-------------|--------|---------------|----------------------|
 | knn           | 0.7         | 5      | 0.8976        | 0.8950               |
-| decision_tree | 0.7         | 5      | 0.8733        | 0.8713               |
-| naive_bayes   | 0.7         | 5      | 0.8346        | 0.8378               |
 | knn           | 0.7         | 10     | 0.8958        | 0.8954               |
-| decision_tree | 0.7         | 10     | 0.8733        | 0.8744               |
-| naive_bayes   | 0.7         | 10     | 0.8346        | 0.8386               |
 | knn           | 0.8         | 5      | 0.8932        | 0.8953               |
-| decision_tree | 0.8         | 5      | 0.8776        | 0.8729               |
-| naive_bayes   | 0.8         | 5      | 0.8380        | 0.8381               |
 | knn           | 0.8         | 10     | 0.8932        | 0.8962               |
-| decision_tree | 0.8         | 10     | 0.8776        | 0.8751               |
-| naive_bayes   | 0.8         | 10     | 0.8380        | 0.8380               |
 | knn           | 0.9         | 5      | 0.8943        | 0.8962               |
-| decision_tree | 0.9         | 5      | 0.8737        | 0.8762               |
-| naive_bayes   | 0.9         | 5      | 0.8350        | 0.8369               |
 | knn           | 0.9         | 10     | 0.8939        | 0.8964               |
+| decision_tree | 0.7         | 5      | 0.8733        | 0.8713               |
+| decision_tree | 0.7         | 10     | 0.8733        | 0.8744               |
+| decision_tree | 0.8         | 5      | 0.8776        | 0.8729               |
+| decision_tree | 0.8         | 10     | 0.8776        | 0.8751               |
+| decision_tree | 0.9         | 5      | 0.8737        | 0.8762               |
 | decision_tree | 0.9         | 10     | 0.8737        | 0.8743               |
+| naive_bayes   | 0.7         | 5      | 0.8346        | 0.8378               |
+| naive_bayes   | 0.7         | 10     | 0.8346        | 0.8386               |
+| naive_bayes   | 0.8         | 5      | 0.8380        | 0.8381               |
+| naive_bayes   | 0.8         | 10     | 0.8380        | 0.8380               |
+| naive_bayes   | 0.9         | 5      | 0.8350        | 0.8369               |
 | naive_bayes   | 0.9         | 10     | 0.8350        | 0.8372               |
