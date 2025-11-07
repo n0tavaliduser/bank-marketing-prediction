@@ -2,7 +2,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, roc_curve, auc
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
@@ -36,12 +36,15 @@ def train_and_evaluate(X, y, model_name, split_ratio, k_fold, output_dir):
     tracemalloc.stop()
 
     y_pred = model.predict(X_test)
+    y_pred_proba = model.predict_proba(X_test)[:, 1]
 
     # Create output directories
     split_dir = os.path.join(output_dir, f'scorer/splits_{int(split_ratio*100)}_{int((1-split_ratio)*100)}')
     cm_dir = os.path.join(output_dir, 'confusion-matrix')
+    roc_dir = os.path.join(output_dir, 'roc-curves')
     os.makedirs(split_dir, exist_ok=True)
     os.makedirs(cm_dir, exist_ok=True)
+    os.makedirs(roc_dir, exist_ok=True)
 
     # Save confusion matrix
     cm = confusion_matrix(y_test, y_pred)
@@ -51,6 +54,22 @@ def train_and_evaluate(X, y, model_name, split_ratio, k_fold, output_dir):
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
     plt.savefig(os.path.join(cm_dir, f'{model_name}_split_{int(split_ratio*100)}_{int((1-split_ratio)*100)}.png'))
+    plt.close()
+
+    # ROC Curve
+    fpr, tpr, _ = roc_curve(y_test, y_pred_proba)
+    roc_auc = auc(fpr, tpr)
+
+    plt.figure(figsize=(8, 6))
+    plt.plot(fpr, tpr, color='darkorange', lw=2, label=f'ROC curve (area = {roc_auc:.2f})')
+    plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title(f'ROC Curve - {model_name.upper()} (Split {int(split_ratio*100)}-{int((1-split_ratio)*100)})')
+    plt.legend(loc="lower right")
+    plt.savefig(os.path.join(roc_dir, f'{model_name}_split_{int(split_ratio*100)}_{int((1-split_ratio)*100)}.png'))
     plt.close()
 
     # Save performance metrics
@@ -69,4 +88,4 @@ def train_and_evaluate(X, y, model_name, split_ratio, k_fold, output_dir):
     cv_scores = cross_val_score(model, X_train, y_train, cv=k_fold)
     mean_cv_accuracy = np.mean(cv_scores)
 
-    return accuracy, mean_cv_accuracy, training_time, peak
+    return accuracy, mean_cv_accuracy, training_time, peak, (fpr, tpr, roc_auc)
