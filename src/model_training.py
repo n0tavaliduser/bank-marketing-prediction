@@ -11,7 +11,7 @@ import os
 
 def train_and_evaluate(X, y, model_name, split_ratio, k_fold, output_dir):
     """Trains and evaluates a model."""
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1 - split_ratio, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1 - split_ratio, random_state=42, stratify=y)
 
     if model_name == 'knn':
         param_grid = {'n_neighbors': range(1, 21)}
@@ -56,7 +56,7 @@ def train_and_evaluate(X, y, model_name, split_ratio, k_fold, output_dir):
     performance_df.to_csv(os.path.join(split_dir, f'{model_name}_performance.csv'), index=False)
 
     # Cross-validation
-    cv_scores = cross_val_score(model, X, y, cv=k_fold)
+    cv_scores = cross_val_score(model, X_train, y_train, cv=k_fold)
     mean_cv_accuracy = np.mean(cv_scores)
 
     return accuracy, mean_cv_accuracy
