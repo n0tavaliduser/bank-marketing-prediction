@@ -7,7 +7,9 @@ setup(
     install_requires=[
         'pandas',
         'scikit-learn',
-        'numpy'
+        'numpy',
+        'matplotlib',
+        'seaborn'
     ],
     entry_points={
         'console_scripts': [
